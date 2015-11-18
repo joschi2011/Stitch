@@ -1,0 +1,39 @@
+<%= render 'shared/page_title', title: "Inventory by Batch" %>
+<%= render 'layouts/navigation' %>
+<br>
+
+<div class="media">
+  <div class="media-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Batch</th>
+          <th>Created</th>
+          <th>Item</th>
+          <th>Status</th>
+          <th>Style</th>
+          <th>Type</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Price Sold</th>
+         </tr>
+      </thead>
+
+      <tbody>
+        <% @itemsbybatch.each do |item| %>
+            <tr>
+              <td><%= item.clearance_batch.id %></td>
+              <td><%= item.clearance_batch.created_at.strftime("%Y/%m/%d") %></td>
+              <td><%= item.id %></td>
+              <td><%= item.status %></td>
+              <td><%= item.style.name %></td>
+              <td><%= item.style.type %></td>
+              <td><%= item.color %></td>
+              <td><%= item.size %></td>
+              <td><%= sprintf('%.2f', item.price_sold)%></td>
+            </tr>
+        <% end %>
+     </tbody>
+    </table>
+  </div>
+</div>

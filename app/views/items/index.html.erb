@@ -1,0 +1,48 @@
+<%= render 'shared/page_title', title: "Inventory by Status" %>
+<%= render 'layouts/navigation' %>
+<br>
+<div class="media">
+  
+  <div class="range-query">
+    <%= form_tag clearance_queues_path, method: :get do %>
+      <%= text_field_tag 'search[status]' %>
+      <%= submit_tag 'Search', class: 'btn search-button' %>
+    <% end %>
+  </div>
+  <br>
+  <div class="media-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Status</th>
+          <th>Style</th>
+          <th>Type</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Wholesale</th>
+          <th>Retail</th>
+          <th>Price Sold</th>
+          <th>Batch</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @items.each do |item| %>
+            <tr>
+              <td><%= item.id %></td>
+              <td><%= item.status %></td>
+              <td><%= item.style.name %></td>
+              <td><%= item.style.type %></td>
+              <td><%= item.color %></td>
+              <td><%= item.size %></td>
+              <td><%= number_to_currency(item.style.wholesale_price) %></td>
+              <td><%= number_to_currency(item.style.retail_price) %></td>
+              <td><%= number_to_currency(item.price_sold) %></td>
+              <td><%= item.clearance_batch_id %></td>
+            </tr>
+        <% end %>
+     </tbody>
+    </table>
+  </div>
+</div>

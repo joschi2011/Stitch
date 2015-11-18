@@ -1,0 +1,46 @@
+<%= render 'shared/page_title', title: "Scanned Items (Pre-Batch)" %>
+<%= render 'layouts/navigation' %>
+<div class="center jumbotron">
+
+<form action="clearance_queue" class="button_to">
+    <div>
+        <input type="submit" value="Process Batch" />
+    </div>
+</form>
+
+
+  <div class="media">
+    <div class="media-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th></th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <% @cqueue.each do |clearance_queue| %>
+              <tr>
+                <td><%= clearance_queue.scanned_item %></td>
+                <td><%= clearance_queue.created_at.strftime("%Y/%m/%d") %></td>
+                <td><%= clearance_queue.item.status %></td>
+                <td><%= clearance_queue.item.style.name %></td>
+                <td><%= clearance_queue.item.style.type %></td>
+                <td><%= clearance_queue.item.color %></td>
+                <td><%= clearance_queue.item.size %></td>
+                <td><%= link_to 'Delete from Queue', clearance_queue, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: 'Are you sure?'} %></td>
+              </tr>
+          <% end %>
+       </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
