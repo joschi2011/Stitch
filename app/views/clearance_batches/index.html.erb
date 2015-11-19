@@ -1,11 +1,10 @@
-<%= render 'shared/page_title', title: "Upload Clearance Batches" %>
+<%= render 'shared/page_title', title: "Batch Summary" %>
 
 <%= render 'layouts/navigation' %>
   
-<div class="center jumbotron">
+<div class="jumbotron">
     <%= form_tag(clearance_batches_path, multipart: true, class: 'form-inline', role: 'form') do %>
       <div class="form-group">
-        <%= label_tag 'csv_batch_file', 'Select batch file' %><br>
         <%= file_field_tag 'csv_batch_file', class: 'form-control' %>
       </div>
       <%= button_tag 'upload batch file', class: 'btn btn-primary' %>
@@ -16,7 +15,7 @@
       <tr>
         <th>Batch Number</th></th>
         <th>Date clearanced</th>
-        <th># Items clearanced</th>
+        <th style="text-align:center"># Items clearanced</th>
         <th></th>
         <th></th>
       </tr>
@@ -26,7 +25,7 @@
         <tr>
           <td>Clearance Batch <%= clearance_batch.id %></td>
           <td><%= l(clearance_batch.created_at, format: :short) %></td>
-          <td><%= clearance_batch.items.count %></td>
+          <td align="center"><%= clearance_batch.items.count %></td>
           <td><%= link_to 'View', clearance_batch, class: 'btn btn-primary' %></td>
         </tr>
       <%- end -%>

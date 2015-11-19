@@ -27,14 +27,14 @@ class ClearanceQueuesController < ApplicationController
     redirect_to '/clearance_queues/new'
   end
 
-  def process(cqueue)
-    if not cqueue.empty?
-      ClearancingService.new.process_items_to_batch(cqueue)
-      flash[:success] = "Batch was created"
-    else
-      flash[:alert] = "Nothing found"
-    end
-  end
+  #def process(cqueue)
+  #  if not cqueue.empty?
+   #   ClearancingService.new.process_items_to_batch(cqueue)
+   #   flash[:success] = "Batch was created"
+  #  else
+  #    flash[:alert] = "Nothing found"
+  #  end
+  #end
   
   def destroy
     ClearanceQueue.find(params[:id]).destroy

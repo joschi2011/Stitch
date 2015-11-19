@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   
   def index
-    @items = Item.all.order('status asc')
+    @items = Item.paginate(:page => params[:page], :per_page => 10).order('status ASC')
   end
   
   def index_batches
