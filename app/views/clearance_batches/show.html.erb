@@ -1,8 +1,14 @@
 <%= render 'shared/page_title', title: "View Clearance Batch" %>
+
 <div class="jumbotron">
+  
     <div><strong>Batch Number: <%= @clearance_batches.id %><br>
          Batch Date: <%= @clearance_batches.created_at.strftime("%Y/%m/%d") %><br>
-         Status: Clearanced<br><br></strong></div>
+         Status: Clearanced<br><br></strong>
+    </div>
+    
+    <input id ="printbtn" type="button" value="Print this page" class="btn btn-mini btn-primary" onclick="window.print();" ><br><br>
+ 
     <table class="table table-striped">
       <thead>
         <tr>

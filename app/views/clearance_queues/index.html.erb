@@ -1,11 +1,8 @@
 <%= render 'shared/page_title', title: "Scanned Items (Pre-Batch)" %>
 <%= render 'layouts/navigation' %>
+
 <div class="jumbotron">
-
-<form action="clearance_queue" class="button_to">
-    <div><input type="submit" value="Process Batch" class="btn btn-primary" /></div>
-</form><br>
-
+  <%= button_to "Process Batch", {:action => "processscanned", :controller => "clearance_queues" }, {:class => "btn btn-primary"  }%><br>
   <table class="table table-striped clearance_batches">
     <thead>
       <tr>

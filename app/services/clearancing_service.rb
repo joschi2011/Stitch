@@ -18,18 +18,13 @@ class ClearancingService
   end
   
   def process_items_to_batch(clqueue)
-      if not clqueue.empty?
-        batch_id = ClearanceBatch.create
-        clqueue.each do |my_queue|
-          item = Item.find(my_queue.scanned_item)
-          item.clearance_batch_id = batch_id.id
-          item.clearance!
-          item.save
-          clqueue.find(my_queue.id).destroy
-        end
-      return "Batch #{batch_id.id} was created"
-      else
-        return "Nothing found"
+      batch_id = ClearanceBatch.create
+      clqueue.each do |my_queue|
+        item = Item.find(my_queue.scanned_item)
+        item.clearance_batch_id = batch_id.id
+        item.clearance!
+        item.save
+        clqueue.find(my_queue.id).destroy
       end
   end
  

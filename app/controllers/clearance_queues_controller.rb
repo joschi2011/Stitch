@@ -9,32 +9,36 @@ class ClearanceQueuesController < ApplicationController
   end
  
   def create
-    @cqueue = ClearanceQueue.new(cqueue_params)
+     @cqueue = ClearanceQueue.new(cqueue_params)
      potential_item_id = @cqueue.scanned_item
      
     if potential_item_id.blank? || potential_item_id == 0 || !potential_item_id.is_a?(Integer)
-      flash[:danger] = "Item id #{potential_item_id} is not valid"  
+      flash[:danger] = "Item #{potential_item_id} is not valid"  
     elsif ClearanceQueue.exists?(:scanned_item => potential_item_id)
-      flash[:danger] = "Item id #{potential_item_id} already exists"
+      flash[:danger] = "Item #{potential_item_id} already exists"
     elsif Item.where(id: potential_item_id).none?
-      flash[:danger] = "Item id #{potential_item_id} could not be found"      
+      flash[:danger] = "Item #{potential_item_id} could not be found"      
     elsif Item.sellable.where(id: potential_item_id).none?
-      flash[:danger] = "Item id #{potential_item_id} could not be clearanced"
+      flash[:danger] = "Item #{potential_item_id} could not be clearanced"
     else
       @cqueue = ClearanceQueue.create(cqueue_params)
-      flash[:success] = "Your item was added to the batch successfully!"
+      flash[:success] = "Item #{potential_item_id} was added to the batch successfully!"
     end
     redirect_to '/clearance_queues/new'
   end
 
-  #def process(cqueue)
-  #  if not cqueue.empty?
-   #   ClearancingService.new.process_items_to_batch(cqueue)
-   #   flash[:success] = "Batch was created"
-  #  else
-  #    flash[:alert] = "Nothing found"
-  #  end
-  #end
+  def processscanned
+    @cqueue = ClearanceQueue.all
+    if not @cqueue.empty?
+      ClearancingService.new.process_items_to_batch(@cqueue)
+      flash[:success] = "Batch was created sucessfully"
+      redirect_to '/clearance_batches/'
+    else
+      flash[:danger] = "No records were found"
+      redirect_to '/clearance_queues/'
+    end
+
+  end
   
   def destroy
     ClearanceQueue.find(params[:id]).destroy

@@ -4,3 +4,9 @@
  *= require_tree .
  *= require_self
  */
+ 
+ @media print {
+    #printbtn {
+        display :  none;
+    }
+}

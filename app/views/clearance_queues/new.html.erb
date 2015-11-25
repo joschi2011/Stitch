@@ -1,12 +1,11 @@
 <%= render 'shared/page_title', title: "Scan Clearance Items" %>
 <%= render 'layouts/navigation' %>
-<%= render 'shared/errors', obj: @cqueue %>
 
 <div class="center jumbotron">
   <%= form_for @cqueue do |f| %>
   
     <p>
-      <%= f.text_field :scanned_item %>
+      <%= f.text_field :scanned_item, :autofocus => true %>
   
       <%= f.submit "Add", class: "btn btn-primary" %>
     </p>
