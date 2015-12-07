@@ -1,16 +1,16 @@
 class ClearanceQueuesController < ApplicationController
 
   def index
-    @cqueue = ClearanceQueue.all.order('created_at desc')
+    @clearance_queue = ClearanceQueue.all.order('created_at desc')
   end
  
   def new
-    @cqueue = ClearanceQueue.new
+    @clearance_queue = ClearanceQueue.new
   end
  
   def create
-     @cqueue = ClearanceQueue.new(cqueue_params)
-     potential_item_id = @cqueue.scanned_item
+     @clearance_queue = ClearanceQueue.new(cqueue_params)
+     potential_item_id = @clearance_queue.scanned_item
      
     if potential_item_id.blank? || potential_item_id == 0 || !potential_item_id.is_a?(Integer)
       flash[:danger] = "Item #{potential_item_id} is not valid"  
@@ -21,16 +21,16 @@ class ClearanceQueuesController < ApplicationController
     elsif Item.sellable.where(id: potential_item_id).none?
       flash[:danger] = "Item #{potential_item_id} could not be clearanced"
     else
-      @cqueue = ClearanceQueue.create(cqueue_params)
+      @clearance_queue.save
       flash[:success] = "Item #{potential_item_id} was added to the batch successfully!"
     end
     redirect_to '/clearance_queues/new'
   end
 
   def processscanned
-    @cqueue = ClearanceQueue.all
-    if not @cqueue.empty?
-      ClearancingService.new.process_items_to_batch(@cqueue)
+    @clearance_queue = ClearanceQueue.all
+    if not @clearance_queue.empty?
+      ClearancingService.new.process_items_to_batch(@clearance_queue)
       flash[:success] = "Batch was created sucessfully"
       redirect_to '/clearance_batches/'
     else

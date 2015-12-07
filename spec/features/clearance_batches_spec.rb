@@ -10,9 +10,9 @@ describe "add new monthly clearance_batch" do
       let!(:clearance_batch_2) { FactoryGirl.create(:clearance_batch) }
 
       it "displays a list of all past clearance batches" do
-        visit "/"
+        visit "/clearance_batches"
         expect(page).to have_content("Stitch Fix Clearance Tool")
-        expect(page).to have_content("Clearance Batches")
+        expect(page).to have_content("Batch Summary")
         within('table.clearance_batches') do
           expect(page).to have_content("Clearance Batch #{clearance_batch_1.id}")
           expect(page).to have_content("Clearance Batch #{clearance_batch_2.id}")
@@ -28,7 +28,7 @@ describe "add new monthly clearance_batch" do
         it "should allow a user to upload a new clearance batch successfully" do
           items = 5.times.map{ FactoryGirl.create(:item) }
           file_name = generate_csv_file(items)
-          visit "/"
+          visit "/clearance_batches"
           within('table.clearance_batches') do
             expect(page).not_to have_content(/Clearance Batch \d+/)
           end
@@ -50,7 +50,7 @@ describe "add new monthly clearance_batch" do
           valid_items   = 3.times.map{ FactoryGirl.create(:item) }
           invalid_items = [[987654], ['no thanks']]
           file_name     = generate_csv_file(valid_items + invalid_items)
-          visit "/"
+          visit "/clearance_batches"
           within('table.clearance_batches') do
             expect(page).not_to have_content(/Clearance Batch \d+/)
           end
@@ -71,7 +71,7 @@ describe "add new monthly clearance_batch" do
         it "should allow a user to upload a new clearance batch that totally fails to be clearanced" do
           invalid_items = [[987654], ['no thanks']]
           file_name     = generate_csv_file(invalid_items)
-          visit "/"
+          visit "/clearance_batches"
           within('table.clearance_batches') do
             expect(page).not_to have_content(/Clearance Batch \d+/)
           end

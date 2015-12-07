@@ -1,14 +1,11 @@
 <%= render 'shared/page_title', title: "Scan Clearance Items" %>
 <%= render 'layouts/navigation' %>
 
-<div class="center jumbotron">
-  <%= form_for @cqueue do |f| %>
-  
-    <p>
-      <%= f.text_field :scanned_item, :autofocus => true %>
-  
+<div class="center jumbotron">    
+<p>
+  <%= form_for @clearance_queue do |f| %>
+      <%= f.text_field :scanned_item, autofocus: true %>
       <%= f.submit "Add", class: "btn btn-primary" %>
-    </p>
-  
-  <% end %>
+   <% end %>
+</p>
 </div>

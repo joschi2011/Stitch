@@ -18,7 +18,7 @@
     </thead>
   
     <tbody>
-      <% @cqueue.each do |clearance_queue| %>
+      <% @clearance_queue.each do |clearance_queue| %>
           <tr>
             <td align="center"><%= clearance_queue.scanned_item %></td>
             <td><%= clearance_queue.created_at.strftime("%Y/%m/%d") %></td>
@@ -27,7 +27,7 @@
             <td><%= clearance_queue.item.style.type %></td>
             <td><%= clearance_queue.item.color %></td>
             <td align="center"><%= clearance_queue.item.size %></td>
-            <td><%= link_to 'Delete from Queue', clearance_queue, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: 'Are you sure?'} %></td>
+            <td><%= link_to "Delete", clearance_queue, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: 'Are you sure?'} %></td>
           </tr>
       <% end %>
   </tbody>

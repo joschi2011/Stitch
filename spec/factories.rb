@@ -1,5 +1,6 @@
-FactoryGirl.define do  factory :clearance_queue do
-    
+FactoryGirl.define do  
+  
+  factory :clearance_queue do
   end
 
 
@@ -17,4 +18,5 @@ FactoryGirl.define do  factory :clearance_queue do
   factory :style do
     wholesale_price 55
   end
+  
 end
